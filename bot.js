@@ -19,7 +19,7 @@ if (language == 'es') {
 }
 
 /**
- * Module DI Wrapper
+ * Module DI Wrapper (can inject test harnesses)
  * @param {requestify} Requestify or mock
  * @param {function(string)} announce function that broadcasts text to HipChat (or wherever)
  * @param {Number} POLLING_MS How long in ms to wait before polling fifa api again
@@ -111,7 +111,7 @@ module.exports = function(requestify, announce, POLLING_MS, SLEEP_MS, controls) 
         match.update(matches[i]);
       }
 
-      if (controls && !controls.deactivate) {
+      if (!controls || !controls.deactivate) {
         setTimeout(pollForMatchUpdates, POLLING_MS);
       }
     });
