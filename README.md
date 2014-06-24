@@ -10,6 +10,9 @@ Forked from [sbehrends/Live-WorldCup-Notification-for-Slack](sbehrends/Live-Worl
 + It notifies when a match starts or ends
 + It notifies when there's a gooooooooaaaaaaaal!
 
+![demo](https://github.com/dlopuch/HipGooooooaaaaaaal/raw/demo.png "Everybody hates the Vuvuzela")
+
+
 ## To run:
 ```
 $ npm install
