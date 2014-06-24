@@ -1,25 +1,16 @@
-Live-WorldCup-Notification-for-Slack
+HipGooooooaaaaaaal
 ====================================
 
-It's a NodeJS worker that request every 5 seconds data from the FIFA World Cup API and notifies via Slack API (It's possible to apply other ways of notification) the changes of the match.
+It's a NodeJS worker that request every 5 seconds data from the FIFA World Cup API and sends gooooooaaaaaaal notifications to a HipChat room
+
+Forked from [sbehrends/Live-WorldCup-Notification-for-Slack](sbehrends/Live-WorldCup-Notification-for-Slack).  Most of the hard work comes from there. Just changing it to do hipchat notifications :)
 
 ====================================
 
 + It notifies when a match starts
 + It notifies when the score changes (this means Goal or the match finished)
 
-It is posible to run it as a worker on Heroku :)
-
 ## Configurations
-
-### Slack Web Hook
-
-You need to add an Incoming WebHooks integration in Slack settings. Slack will provide a URL, it must be configured on heroku.
-
-Example:
-```
-SLACKHOOK=https://yourslackdomain.slack.com/services/hooks/incoming-webhook?token=SomeSecretToken
-```
 
 ### Language
 

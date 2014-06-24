@@ -1,5 +1,5 @@
 {
-  "name": "AeroBot",
+  "name": "HipGooooooaaaaaaal",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -14,6 +14,5 @@
     "async": "^0.9.0",
     "cron": "^1.0.4",
     "requestify": "^0.1.16",
-    "slack-notify": "^0.1.2"
   }
 }
