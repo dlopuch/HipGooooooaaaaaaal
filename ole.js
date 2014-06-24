@@ -14,7 +14,7 @@ var chatroom = new HipChat(process.env.HC_KEY),
     delayMs = process.env.DELAY_MS ? parseInt(process.env.DELAY_MS, 10) : 0;
 
 var announce = function(text) {
-  console.log('Sent to hipchat (' + delayMs + ' delay): ' + text);
+  console.log('Sent to hipchat (' + delayMs + 'ms delay): ' + text);
 
   setTimeout(function() {
     chatroom.postMessage({
