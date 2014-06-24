@@ -7,8 +7,17 @@ Forked from [sbehrends/Live-WorldCup-Notification-for-Slack](sbehrends/Live-Worl
 
 ====================================
 
-+ It notifies when a match starts
-+ It notifies when the score changes (this means Goal or the match finished)
++ It notifies when a match starts or ends
++ It notifies when there's a gooooooooaaaaaaaal!
+
+## To run:
+```
+$ npm install
+$ export HC_KEY=myhipchatkey
+$ export HC_ROOM=1234
+$ export HC_FROM=BotName
+$ npm run start
+```
 
 ## Configurations
 

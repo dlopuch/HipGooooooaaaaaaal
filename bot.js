@@ -3,10 +3,6 @@ var Match = require("./Match");
 var activeMatches = {};
 
 // Load configuration.
-var DEFAULT_ICON_URL = 'http://worldcupzones.com/wp-content/uploads/2014/05/the-2014-fifa-world-cup-in46.jpg';
-var botName = process.env.BOTNAME || 'WorldCupBot';
-var iconUrl = (process.env.ICON_URL || DEFAULT_ICON_URL);
-var channelName = '#' + (process.env.CHANNEL || 'random');
 var language = process.env.LANGUAGE || 'en';
 
 var startExpression;
@@ -72,7 +68,7 @@ module.exports = function(requestify, announce, POLLING_MS, SLEEP_MS, controls) 
    * Sends a gooooooooaaaaaaaaal notification
    */
   var announceGoal = function(match, which, other) {
-    announce('GOOOOOOOOAAAAAAAAAL! ' + match[which + 'Team'] + ' scores!!!! ' +
+    announce('@here GOOOOOOOOAAAAAAAAAL! ' + match[which + 'Team'] + ' scores!!!! ' +
              match[which + 'Goals'] + ' to ' + match[other + 'Goals']);
   };
 
