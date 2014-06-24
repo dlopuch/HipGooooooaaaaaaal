@@ -1,6 +1,20 @@
 /**
  * @file
  * Match objects.
+ *
+ * Match attributes:
+ *   homeTeam: {string}
+ *   awayTeam: {string}
+ *   homeGoals: {Number}
+ *   awayGoals: {Number}
+ *   live: {boolean}
+ *   url: {string} sharing URL, eg http://www.fifa.com/worldcup/matches/round=255931/match=300186456/index.html#nosticky
+ *   data: {Object} raw fifa API match data
+ *
+ * Events Emitted:
+ *   'goal' ({Match}, {'home' | 'away'})
+ *   'startMatch' ({Match})
+ *   'endMatch' ({Match})
  */
 
 var EventEmitter = require('events').EventEmitter;
@@ -16,7 +30,7 @@ var util = require('util');
  */
 var Match = function (language) {
   EventEmitter.call(this);
-  this.language = language;
+  this.language = language || 'en';
   this.initialized = false;
 };
 
@@ -29,24 +43,31 @@ util.inherits(Match, EventEmitter);
  *   Match object parsed from the FIFA api.
  */
 Match.prototype.update = function (matchData) {
-  var score = matchData.c_Score;
   var live = matchData.b_Live;
   this.data = matchData;
 
   if (!this.initialized) {
     this.homeTeam = this.data['c_HomeTeam_' + this.language];
     this.awayTeam = this.data['c_AwayTeam_' + this.language];
+    this.homeGoals = matchData.n_HomeGoals;
+    this.awayGoals = matchData.n_AwayGoals;
     this.url = this.data['c_ShareURL_' + this.language];
-    console.log(this.url);
-    this.score = '';
     this.live = false;
     this.initialized = true;
   }
 
   if (live != this.live) {
     this[(live ? 'start' : 'end') + 'Match']();
-  } else if (score != this.score) {
-    this.updateScore(score);
+  };
+
+  if (this.homeGoals !== matchData.n_HomeGoals) {
+    this.homeGoals = matchData.n_HomeGoals;
+    this.emit('goal', this, 'home');
+  }
+
+  if (this.awayGoals !== matchData.n_AwayGoals) {
+    this.awayGoals = matchData.n_AwayGoals;
+    this.emit('goal', this, 'home');
   }
 };
 
@@ -56,7 +77,6 @@ Match.prototype.update = function (matchData) {
  * Sets live to true and emits the startMatch event.
  */
 Match.prototype.startMatch = function () {
-  console.log("start");
   this.live = true;
   this.emit('startMatch', this);
 };
@@ -67,20 +87,8 @@ Match.prototype.startMatch = function () {
  * Sets live to false and emits the endMatch event.
  */
 Match.prototype.endMatch = function () {
-  console.log("end");
   this.live = false;
   this.emit('endMatch', this);
-};
-
-/**
- * Handles score changes.
- *
- * Updates the internal score and emits the scoreChange event.
- */
-Match.prototype.updateScore = function (score) {
-  console.log("score");
-  this.score = score;
-  this.emit('updateScore', this);
 };
 
 module.exports = Match;

@@ -13,6 +13,6 @@
   "dependencies": {
     "async": "^0.9.0",
     "cron": "^1.0.4",
-    "requestify": "^0.1.16",
+    "requestify": "^0.1.16"
   }
 }

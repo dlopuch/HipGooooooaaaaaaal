@@ -34,12 +34,6 @@ var slackLink = function (text, url) {
  */
 var announce = function (text) {
   console.log(text);
-  slack.send({
-    channel: channelName,
-    text: text,
-    username: botName,
-    icon_url: iconUrl,
-  });
 };
 
 /**
@@ -74,7 +68,16 @@ var announceScore = function (match) {
 function pollForMatchUpdates(){
 
   // Get Match list
-  requestify.get('http://live.mobileapp.fifa.com/api/wc/matches').then(function(response) {
+  requestify.get('http://live.mobileapp.fifa.com/api/wc/matches')
+  .then(function(response) {
+    if (response.getCode() !== 200) {
+      console.log('------- ' + (new Date()).toString() + ' ----------');
+      console.log('WARNING! FIFA API sent response: ' + response.getCode());
+      console.log('Body: ' + response.getBody());
+      console.log('Trying again...');
+      return setTimeout(pollForMatchUpdates, 5000);
+    }
+
     var matches = response.getBody().data.group;
 
     matches = matches.filter(function(item) {
@@ -88,7 +91,7 @@ function pollForMatchUpdates(){
         match = new Match(language);
         match.on('startMatch', announceMatchStart);
         match.on('endMatch', announceMatchComplete);
-        match.on('updateScore', announceScore);
+        match.on('goal', announceScore);
         activeMatches[matches[i].n_MatchID] = match;
       }
     }
