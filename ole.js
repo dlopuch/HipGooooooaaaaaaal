@@ -28,8 +28,9 @@ var announce = function(text) {
       if (error) {
         console.log('  HIPCHAT API Response: ' + JSON.stringify(data));
       }
-    }),
-    delayMs
+    });
+  },
+  delayMs
   );
 };
 
