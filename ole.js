@@ -25,7 +25,7 @@ var announce = function(text) {
       color: process.env.HC_COLOR || 'yellow',
       message_format: 'text'
     }, function(data) {
-      if (error) {
+      if (data) {
         console.log('  HIPCHAT API Response: ' + JSON.stringify(data));
       }
     });
