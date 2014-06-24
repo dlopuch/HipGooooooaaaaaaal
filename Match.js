@@ -12,7 +12,7 @@
  *   data: {Object} raw fifa API match data
  *
  * Events Emitted:
- *   'goal' ({Match}, {'home' | 'away'})
+ *   'goal' ({Match}, {'home' | 'away'} scorer, {'away' | 'home'} opponent)
  *   'startMatch' ({Match})
  *   'endMatch' ({Match})
  */
@@ -62,12 +62,12 @@ Match.prototype.update = function (matchData) {
 
   if (this.homeGoals !== matchData.n_HomeGoals) {
     this.homeGoals = matchData.n_HomeGoals;
-    this.emit('goal', this, 'home');
+    this.emit('goal', this, 'home', 'away');
   }
 
   if (this.awayGoals !== matchData.n_AwayGoals) {
     this.awayGoals = matchData.n_AwayGoals;
-    this.emit('goal', this, 'home');
+    this.emit('goal', this, 'away', 'home');
   }
 };
 
