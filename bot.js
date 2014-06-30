@@ -86,7 +86,11 @@ module.exports = function(requestify, announce, POLLING_MS, SLEEP_MS, controls) 
         return setTimeout(pollForMatchUpdates, POLLING_MS);
       }
 
-      var matches = response.getBody().data.group;
+      // .group is how the API sends the first tournament phase group matches
+      //var matches = response.getBody().data.group;
+
+      // .second is how the API sends the second tournament phase knockout matches
+      var matches = response.getBody().data.second;
 
       matches = matches.filter(function(item) {
         return item.b_Live === true || activeMatches[item.n_MatchID];
